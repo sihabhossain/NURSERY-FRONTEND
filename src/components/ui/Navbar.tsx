@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Search, User, Heart, ShoppingCart, Menu, X } from "lucide-react";
 import Logo from "../../../src/assets/logo.webp";
 import Container from "./Container";
+import { Sidebar } from "./Sidebar";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -56,10 +57,7 @@ const Navbar = () => {
             <User className="w-6 h-6 cursor-pointer hover:text-green-600 hidden md:block" />
             <Heart className="w-6 h-6 cursor-pointer hover:text-green-600 hidden md:block" />
             <div className="relative hidden md:block">
-              <ShoppingCart className="w-6 h-6 cursor-pointer hover:text-green-600" />
-              <span className="absolute -top-2 -right-2 bg-green-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
-                3
-              </span>
+              <Sidebar />
             </div>
             <button
               className={`md:hidden transition-transform duration-300 transform ${
