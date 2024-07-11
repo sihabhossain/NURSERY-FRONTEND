@@ -1,5 +1,5 @@
 import Hero from "../ui/Hero";
-import Products from "../ui/Products";
+import Products from "../ui/FeaturedProducts";
 
 const Home = () => {
   return (

@@ -3,6 +3,7 @@ import { Search, User, Heart, ShoppingCart, Menu, X } from "lucide-react";
 import Logo from "../../../src/assets/logo.webp";
 import Container from "./Container";
 import { Sidebar } from "./Sidebar";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,45 +13,29 @@ const Navbar = () => {
       <Container>
         <div className="container mx-auto px-4 flex justify-between items-center py-4 md:py-8">
           <div className="flex items-center">
-            <img src={Logo} alt="Pronia" className="h-8 w-auto mr-4" />
+            <Link to={"/"}>
+              <img src={Logo} alt="Pronia" className="h-8 w-auto mr-4" />
+            </Link>
           </div>
           <div className="hidden md:flex space-x-6 text-gray-600">
-            <a
-              href="#home"
+            <Link
+              to={"/"}
               className="hover:text-green-600 hover:underline hover:underline-offset-4 hover:decoration-green-600"
             >
               HOME
-            </a>
-            <a
-              href="#shop"
+            </Link>
+            <Link
+              to={"/shop"}
               className="hover:text-green-600 hover:underline hover:underline-offset-4 hover:decoration-green-600"
             >
-              SHOP
-            </a>
-            <a
-              href="#blog"
+              PRODUCTS
+            </Link>
+            <Link
+              to={"/management"}
               className="hover:text-green-600 hover:underline hover:underline-offset-4 hover:decoration-green-600"
             >
-              BLOG
-            </a>
-            <a
-              href="#about"
-              className="hover:text-green-600 hover:underline hover:underline-offset-4 hover:decoration-green-600"
-            >
-              ABOUT US
-            </a>
-            <a
-              href="#pages"
-              className="hover:text-green-600 hover:underline hover:underline-offset-4 hover:decoration-green-600"
-            >
-              PAGES
-            </a>
-            <a
-              href="#contact"
-              className="hover:text-green-600 hover:underline hover:underline-offset-4 hover:decoration-green-600"
-            >
-              CONTACT US
-            </a>
+              MANAGEMENT
+            </Link>
           </div>
           <div className="flex items-center space-x-4">
             <Search className="w-6 h-6 cursor-pointer hover:text-green-600 hidden md:block" />
@@ -84,42 +69,24 @@ const Navbar = () => {
             overflow: "hidden",
           }}
         >
-          <a
-            href="#home"
-            className="block text-center hover:text-green-600 hover:underline hover:underline-offset-4 hover:decoration-green-600"
+          <Link
+            to={"/"}
+            className="hover:text-green-600 hover:underline hover:underline-offset-4 hover:decoration-green-600"
           >
             HOME
-          </a>
-          <a
-            href="#shop"
-            className="block text-center hover:text-green-600 hover:underline hover:underline-offset-4 hover:decoration-green-600"
+          </Link>
+          <Link
+            to={"/shop"}
+            className="hover:text-green-600 hover:underline hover:underline-offset-4 hover:decoration-green-600"
           >
-            SHOP
-          </a>
-          <a
-            href="#blog"
-            className="block text-center hover:text-green-600 hover:underline hover:underline-offset-4 hover:decoration-green-600"
+            PRODUCTS
+          </Link>
+          <Link
+            to={"/management"}
+            className="hover:text-green-600 hover:underline hover:underline-offset-4 hover:decoration-green-600"
           >
-            BLOG
-          </a>
-          <a
-            href="#about"
-            className="block text-center hover:text-green-600 hover:underline hover:underline-offset-4 hover:decoration-green-600"
-          >
-            ABOUT US
-          </a>
-          <a
-            href="#pages"
-            className="block text-center hover:text-green-600 hover:underline hover:underline-offset-4 hover:decoration-green-600"
-          >
-            PAGES
-          </a>
-          <a
-            href="#contact"
-            className="block text-center hover:text-green-600 hover:underline hover:underline-offset-4 hover:decoration-green-600"
-          >
-            CONTACT US
-          </a>
+            MANAGEMENT
+          </Link>
           <div className="flex justify-around space-y-4 items-center">
             <Search className="w-6 h-6 mt-4 cursor-pointer hover:text-green-600" />
             <User className="w-6 h-6 cursor-pointer hover:text-green-600" />
