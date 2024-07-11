@@ -3,7 +3,7 @@ import Container from "./Container";
 
 export default function Hero() {
   return (
-    <section className="p-8 bg-[#f9f4ef] h-60vh sm:h-auto">
+    <section className="p-8  bg-[#f9f4ef] h-60vh sm:h-auto">
       <Container>
         <div className="flex flex-col sm:flex-row gap:10 items-center justify-between">
           <div className="space-y-4 max-w-[50%] sm:w-[45%]">
