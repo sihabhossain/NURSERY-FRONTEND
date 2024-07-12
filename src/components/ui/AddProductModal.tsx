@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -11,28 +11,44 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { TFormData } from "@/types/types";
+import { useCreateProductsMutation } from "@/redux/api/api";
 
 export function AddProductModal() {
-  const [formData, setFormData] = useState<TFormData>({
+  const [formData, setFormData] = useState({
     category: "",
     title: "",
-    price: 0,
-    quantity: 0,
+    price: "",
+    quantity: "",
     description: "",
-    rating: 0,
+    rating: "",
     image: "",
+    stock: "", // New field for stock
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const [addProduct, { isError, isSuccess }] = useCreateProductsMutation();
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log(formData); // Replace with actual logic
+    addProduct(formData);
+    // Optionally, you can reset the form state after submission
+    setFormData({
+      category: "",
+      title: "",
+      price: "",
+      quantity: "",
+      description: "",
+      rating: "",
+      image: "",
+      stock: "", // Reset stock to empty string
+    });
   };
 
   return (
@@ -56,9 +72,9 @@ export function AddProductModal() {
               <Input
                 id="category"
                 name="category"
+                className="col-span-3"
                 value={formData.category}
                 onChange={handleChange}
-                className="col-span-3"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
@@ -68,9 +84,9 @@ export function AddProductModal() {
               <Input
                 id="title"
                 name="title"
+                className="col-span-3"
                 value={formData.title}
                 onChange={handleChange}
-                className="col-span-3"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
@@ -80,9 +96,9 @@ export function AddProductModal() {
               <Input
                 id="price"
                 name="price"
+                className="col-span-3"
                 value={formData.price}
                 onChange={handleChange}
-                className="col-span-3"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
@@ -92,9 +108,9 @@ export function AddProductModal() {
               <Input
                 id="quantity"
                 name="quantity"
+                className="col-span-3"
                 value={formData.quantity}
                 onChange={handleChange}
-                className="col-span-3"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
@@ -104,9 +120,9 @@ export function AddProductModal() {
               <Input
                 id="description"
                 name="description"
+                className="col-span-3"
                 value={formData.description}
                 onChange={handleChange}
-                className="col-span-3"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
@@ -116,9 +132,9 @@ export function AddProductModal() {
               <Input
                 id="rating"
                 name="rating"
+                className="col-span-3"
                 value={formData.rating}
                 onChange={handleChange}
-                className="col-span-3"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
@@ -128,9 +144,21 @@ export function AddProductModal() {
               <Input
                 id="image"
                 name="image"
+                className="col-span-3"
                 value={formData.image}
                 onChange={handleChange}
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="stock" className="text-right">
+                Stock
+              </Label>
+              <Input
+                id="stock"
+                name="stock"
                 className="col-span-3"
+                value={formData.stock}
+                onChange={handleChange}
               />
             </div>
           </div>
