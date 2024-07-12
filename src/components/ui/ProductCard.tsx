@@ -1,7 +1,26 @@
 import { Heart, ShoppingCart } from "lucide-react";
-import { ProductDetailsModal } from "./Modal";
+import { ProductDetailsModal } from "./ProductDetailsModal";
+import { useAppDispatch } from "@/redux/hooks";
+import { addToCart } from "@/redux/features/cart/cartSlice";
 
 const ProductCard = () => {
+  const dispatch = useAppDispatch();
+
+  const fakeProduct = {
+    _id: "123",
+    title: "Ambrosia",
+    category: "flower",
+    price: 12,
+    quantity: 1,
+    image:
+      "https://htmldemo.net/pronia/pronia/assets/images/product/medium-size/1-2-270x300.jpg",
+    stock: 11,
+  };
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(fakeProduct));
+  };
+
   return (
     <div className="max-w-xs mx-auto bg-white shadow-sm rounded-lg overflow-hidden relative group cursor-pointer">
       <div className="relative overflow-hidden">
@@ -40,7 +59,10 @@ const ProductCard = () => {
           <button className="bg-white text-gray-500 hover:text-white hover:bg-[#98A869] p-2 rounded-md shadow-lg transition duration-300 transform hover:scale-110">
             <ProductDetailsModal />
           </button>
-          <button className="bg-white text-gray-500 hover:text-white hover:bg-[#98A869] p-2 rounded-md shadow-lg transition duration-300 transform hover:scale-110">
+          <button
+            onClick={handleAddToCart}
+            className="bg-white text-gray-500 hover:text-white hover:bg-[#98A869] p-2 rounded-md shadow-lg transition duration-300 transform hover:scale-110"
+          >
             <ShoppingCart />
           </button>
         </div>

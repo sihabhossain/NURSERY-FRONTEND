@@ -12,15 +12,16 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { TFormData } from "@/types/types";
+import { Badge } from "./badge";
 
-export function AddProductModal() {
+export function UpdateProductModal() {
   const [formData, setFormData] = useState<TFormData>({
     category: "",
     title: "",
-    price: 0,
-    quantity: 0,
+    price: "",
+    quantity: "",
     description: "",
-    rating: 0,
+    rating: "",
     image: "",
   });
 
@@ -38,13 +39,13 @@ export function AddProductModal() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Add Product</Button>
+        <Badge>Update</Badge>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add New Product</DialogTitle>
+          <DialogTitle>Update Product</DialogTitle>
           <DialogDescription>
-            Enter product details below and click save to add the product.
+            Enter product details below and click save to update the product.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
@@ -135,7 +136,7 @@ export function AddProductModal() {
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Save Product</Button>
+            <Button type="submit">Update Product</Button>
           </DialogFooter>
         </form>
       </DialogContent>

@@ -1,6 +1,7 @@
 import { AddProductModal } from "../ui/AddProductModal";
+import { Badge } from "../ui/badge";
 import Container from "../ui/Container";
-import { DropDown } from "../ui/DropDown";
+import { UpdateProductModal } from "../ui/UpdateProductModal";
 
 const ProductManagement = () => {
   const products = [
@@ -78,7 +79,12 @@ const ProductManagement = () => {
                     <img className="w-10 h-10" src={product.image} alt="" />
                   </td>
                   <td className="py-3 px-6 text-left">
-                    <DropDown />
+                    <div className="flex space-x-4 cursor-pointer">
+                      <div>
+                        <UpdateProductModal />
+                      </div>
+                      <Badge>Delete</Badge>
+                    </div>
                   </td>
                 </tr>
               ))}

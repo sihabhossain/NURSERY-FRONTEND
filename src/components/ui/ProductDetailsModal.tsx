@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAppDispatch } from "@/redux/hooks";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -9,8 +10,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Eye } from "lucide-react";
+import { addToCart } from "@/redux/features/cart/cartSlice";
 
 const product = {
+  _id: "123",
   title: "American Marigold",
   price: 29.99,
   description: "A beautiful indoor plant with large green leaves.",
@@ -24,6 +27,7 @@ const product = {
 
 export function ProductDetailsModal() {
   const [quantity, setQuantity] = useState(1);
+  const dispatch = useAppDispatch();
 
   const incrementQuantity = () => {
     setQuantity((prevQuantity) => Math.min(prevQuantity + 1, product.stock));
@@ -31,6 +35,10 @@ export function ProductDetailsModal() {
 
   const decrementQuantity = () => {
     setQuantity((prevQuantity) => Math.max(prevQuantity - 1, 1));
+  };
+
+  const handleAddToCart = () => {
+    dispatch(addToCart({ ...product, quantity }));
   };
 
   return (
@@ -93,7 +101,9 @@ export function ProductDetailsModal() {
                 <span className="mx-2">{quantity}</span>
                 <Button onClick={incrementQuantity}>+</Button>
               </div>
-              <Button className="ml-4">Add to Cart</Button>
+              <Button className="ml-4" onClick={handleAddToCart}>
+                Add to Cart
+              </Button>
             </div>
           </div>
         </div>

@@ -1,3 +1,4 @@
+// src/components/Sidebar.tsx
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -7,18 +8,14 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useAppSelector } from "@/redux/hooks";
 import { ShoppingCart } from "lucide-react";
+import { removeFromCart } from "@/redux/features/cart/cartSlice";
+import { useDispatch } from "react-redux";
 
 export function Sidebar() {
-  const cartItems = [
-    {
-      name: "American Marigold",
-      price: 23.45,
-      quantity: 1,
-      image:
-        "https://htmldemo.net/pronia/pronia/assets/images/product/medium-size/1-2-270x300.jpg",
-    },
-  ];
+  const cartItems = useAppSelector((state) => state.cart.cart);
+  const dispatch = useDispatch();
 
   const subtotal = cartItems.reduce(
     (total, item) => total + item.price * item.quantity,
@@ -47,16 +44,21 @@ export function Sidebar() {
             >
               <img
                 src={item.image}
-                alt={item.name}
+                alt={item.title}
                 className="w-16 h-16 object-cover"
               />
               <div className="flex-1 ml-4">
-                <p>{item.name}</p>
+                <p>{item.title}</p>
                 <p className="text-gray-500">
                   {item.quantity} x ${item.price.toFixed(2)}
                 </p>
               </div>
-              <button className="text-red-500 hover:text-red-700">×</button>
+              <button
+                className="text-red-500 hover:text-red-700"
+                onClick={() => dispatch(removeFromCart(item._id))}
+              >
+                ×
+              </button>
             </div>
           ))}
         </div>
