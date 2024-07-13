@@ -5,6 +5,7 @@ import { useAppDispatch } from "@/redux/hooks";
 import { addToCart } from "@/redux/features/cart/cartSlice";
 import { TProduct } from "@/types/types";
 import { ProductDetailsModal } from "./ProductDetailsModal";
+import toast from "react-hot-toast";
 
 interface ProductCardProps {
   product: TProduct;
@@ -15,6 +16,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   const handleAddToCart = () => {
     if (product) {
+      toast.success("Product added to cart");
       dispatch(addToCart(product));
     }
   };
