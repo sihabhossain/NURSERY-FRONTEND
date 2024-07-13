@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Search, User, Heart, ShoppingCart, Menu, X } from "lucide-react";
 import Logo from "../../../src/assets/logo.webp";
 import Container from "./Container";
-import { Sidebar } from "./Sidebar";
+import { Sidebar } from "./CartSidebar";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {

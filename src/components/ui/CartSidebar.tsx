@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Sheet,
   SheetContent,
@@ -14,6 +15,7 @@ import { Link } from "react-router-dom";
 import { Button } from "./button";
 
 export function Sidebar() {
+  const [isOpen, setIsOpen] = useState(false);
   const cartItems = useAppSelector((state) => state.cart.cart);
   const dispatch = useDispatch();
 
@@ -22,10 +24,14 @@ export function Sidebar() {
     0
   );
 
+  const handleCheckout = () => {
+    setIsOpen(false);
+  };
+
   return (
-    <Sheet>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <div className="relative">
+        <div className="relative" onClick={() => setIsOpen(true)}>
           <ShoppingCart className="w-6 h-6 cursor-pointer hover:text-green-600" />
           <span className="absolute -top-2 -right-2 bg-green-600 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
             {cartItems.length}
@@ -68,7 +74,11 @@ export function Sidebar() {
         </div>
         <SheetFooter>
           <div className="flex flex-col w-full">
-            <Link to={"/checkout"} state={{ cartItems }}>
+            <Link
+              to={"/checkout"}
+              state={{ cartItems }}
+              onClick={handleCheckout}
+            >
               <Button>Checkout</Button>
             </Link>
           </div>

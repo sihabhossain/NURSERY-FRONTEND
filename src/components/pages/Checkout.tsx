@@ -28,10 +28,6 @@ const CheckoutPage = () => {
                   {item.quantity} x ${item.price.toFixed(2)}
                 </p>
               </div>
-              {/* Option to remove from cart */}
-              <button className="text-red-500 hover:text-red-700">
-                Remove
-              </button>
             </div>
           ))}
         </div>

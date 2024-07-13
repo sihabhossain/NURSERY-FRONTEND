@@ -1,11 +1,13 @@
 import Hero from "../ui/Hero";
-import Products from "../ui/FeaturedProducts";
+import FeaturedProducts from "../ui/FeaturedProducts";
+import ImageGallery from "../ui/ImageGallery";
 
 const Home = () => {
   return (
     <>
       <Hero />
-      <Products></Products>
+      <FeaturedProducts></FeaturedProducts>
+      <ImageGallery />
     </>
   );
 };
