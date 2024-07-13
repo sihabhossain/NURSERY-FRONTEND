@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Sheet,
   SheetContent,
@@ -27,6 +27,23 @@ export function Sidebar() {
   const handleCheckout = () => {
     setIsOpen(false);
   };
+
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      if (cartItems.length > 0) {
+        const message =
+          "You have items in your cart. Are you sure you want to leave?";
+        event.returnValue = message; // For most browsers
+        return message; // For some older browsers
+      }
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [cartItems]);
 
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>

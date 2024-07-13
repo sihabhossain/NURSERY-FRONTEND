@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Search, User, Heart, ShoppingCart, Menu, X } from "lucide-react";
-import Logo from "../../../src/assets/logo.webp";
+import { ShoppingCart, Menu, X } from "lucide-react";
+import Logo from "../../../src/assets/logo.png";
 import Container from "./Container";
 import { Sidebar } from "./CartSidebar";
 import { Link } from "react-router-dom";
@@ -14,7 +14,7 @@ const Navbar = () => {
         <div className="container mx-auto px-4 flex justify-between items-center py-4 md:py-8">
           <div className="flex items-center">
             <Link to={"/"}>
-              <img src={Logo} alt="Pronia" className="h-8 w-auto mr-4" />
+              <img src={Logo} alt="Plantina" className="h-12 w-auto mr-4" />
             </Link>
           </div>
           <div className="hidden md:flex space-x-6 text-gray-600">
@@ -38,9 +38,6 @@ const Navbar = () => {
             </Link>
           </div>
           <div className="flex items-center space-x-4">
-            <Search className="w-6 h-6 cursor-pointer hover:text-green-600 hidden md:block" />
-            <User className="w-6 h-6 cursor-pointer hover:text-green-600 hidden md:block" />
-            <Heart className="w-6 h-6 cursor-pointer hover:text-green-600 hidden md:block" />
             <div className="relative hidden md:block">
               <Sidebar />
             </div>
@@ -88,9 +85,6 @@ const Navbar = () => {
             MANAGEMENT
           </Link>
           <div className="flex justify-around space-y-4 items-center">
-            <Search className="w-6 h-6 mt-4 cursor-pointer hover:text-green-600" />
-            <User className="w-6 h-6 cursor-pointer hover:text-green-600" />
-            <Heart className="w-6 h-6 cursor-pointer hover:text-green-600" />
             <div className="relative">
               <ShoppingCart className="w-6 h-6 cursor-pointer hover:text-green-600" />
             </div>

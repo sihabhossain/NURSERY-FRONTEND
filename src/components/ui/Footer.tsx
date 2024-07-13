@@ -1,5 +1,5 @@
 import { Facebook, Twitter, Sun } from "lucide-react";
-import Logo from "../../assets/logo.webp";
+import Logo from "../../assets/logo.png";
 import Container from "./Container";
 
 const Footer = () => {
@@ -9,7 +9,9 @@ const Footer = () => {
         <div>
           <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
             <div className="flex flex-col items-center md:items-start space-y-4 col-span-1">
-              <img src={Logo} alt="Pronia Logo" className=" mb-4" />
+              <div>
+                <img src={Logo} alt="Plantina" className="w-20" />
+              </div>
               <p className="text-gray-700 text-center md:text-left mb-4 md:mb-0">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna.

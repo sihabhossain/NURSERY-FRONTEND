@@ -12,6 +12,7 @@ import { Eye } from "lucide-react";
 import { addToCart } from "@/redux/features/cart/cartSlice";
 import { TProduct } from "@/types/types";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 export function ProductDetailsModal({ product }: { product: TProduct }) {
   const dispatch = useAppDispatch();
@@ -19,6 +20,7 @@ export function ProductDetailsModal({ product }: { product: TProduct }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleAddToCart = () => {
+    toast.success("Product added to cart");
     dispatch(addToCart({ ...product }));
     setIsOpen(false);
   };

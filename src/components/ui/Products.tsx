@@ -2,7 +2,7 @@ import { useState } from "react";
 import { TProduct } from "@/types/types";
 import ProductCard from "./ProductCard";
 import { useGetProductsQuery } from "@/redux/api/api";
-import Pagination from "../ui/Pagination";
+import Pagination from "./pagination";
 
 interface ProductsProps {
   searchQuery: string;
