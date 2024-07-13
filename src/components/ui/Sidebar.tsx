@@ -1,5 +1,3 @@
-// src/components/Sidebar.tsx
-import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
@@ -12,6 +10,8 @@ import { useAppSelector } from "@/redux/hooks";
 import { ShoppingCart } from "lucide-react";
 import { removeFromCart } from "@/redux/features/cart/cartSlice";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { Button } from "./button";
 
 export function Sidebar() {
   const cartItems = useAppSelector((state) => state.cart.cart);
@@ -68,7 +68,9 @@ export function Sidebar() {
         </div>
         <SheetFooter>
           <div className="flex flex-col w-full">
-            <Button>Checkout</Button>
+            <Link to={"/checkout"} state={{ cartItems }}>
+              <Button>Checkout</Button>
+            </Link>
           </div>
         </SheetFooter>
       </SheetContent>
