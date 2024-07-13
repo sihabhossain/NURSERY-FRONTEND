@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useAppDispatch } from "@/redux/hooks";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,38 +10,21 @@ import {
 } from "@/components/ui/dialog";
 import { Eye } from "lucide-react";
 import { addToCart } from "@/redux/features/cart/cartSlice";
+import { TProduct } from "@/types/types";
+import { useState } from "react";
 
-const product = {
-  _id: "123",
-  title: "American Marigold",
-  price: 29.99,
-  description: "A beautiful indoor plant with large green leaves.",
-  category: "Flower",
-  rating: 4.5,
-  image:
-    "https://htmldemo.net/pronia/pronia/assets/images/product/medium-size/1-2-270x300.jpg",
-  stock: 100,
-  reviews: 1,
-};
-
-export function ProductDetailsModal() {
-  const [quantity, setQuantity] = useState(1);
+export function ProductDetailsModal({ product }: { product: TProduct }) {
   const dispatch = useAppDispatch();
 
-  const incrementQuantity = () => {
-    setQuantity((prevQuantity) => Math.min(prevQuantity + 1, product.stock));
-  };
-
-  const decrementQuantity = () => {
-    setQuantity((prevQuantity) => Math.max(prevQuantity - 1, 1));
-  };
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleAddToCart = () => {
-    dispatch(addToCart({ ...product, quantity }));
+    dispatch(addToCart({ ...product }));
+    setIsOpen(false);
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Eye />
       </DialogTrigger>
@@ -62,7 +44,7 @@ export function ProductDetailsModal() {
               <div className="flex items-center mt-2">
                 <div className="flex items-center text-yellow-500">
                   {Array.from(
-                    { length: Math.floor(product.rating) },
+                    { length: Math.floor(product.rating!) },
                     (_, i) => (
                       <svg
                         key={i}
@@ -78,7 +60,7 @@ export function ProductDetailsModal() {
                   )}
                 </div>
                 <span className="text-gray-500 ml-2">
-                  ({product.reviews} Review{product.reviews > 1 ? "s" : ""})
+                  ({product.rating!} Review{product.rating! > 1 ? "s" : ""})
                 </span>
               </div>
             </DialogHeader>
@@ -96,11 +78,6 @@ export function ProductDetailsModal() {
               </div>
             </div>
             <div className="flex items-center mt-4">
-              <div className="flex items-center">
-                <Button onClick={decrementQuantity}>-</Button>
-                <span className="mx-2">{quantity}</span>
-                <Button onClick={incrementQuantity}>+</Button>
-              </div>
               <Button className="ml-4" onClick={handleAddToCart}>
                 Add to Cart
               </Button>

@@ -22,12 +22,12 @@ export type TCartItem = {
 
 export type TProduct = {
   _id: string;
-  category: string;
   title: string;
+  category: string;
   price: number;
   quantity: number;
-  description: string;
-  rating: number;
   image: string;
   stock: number;
+  description?: string;
+  rating?: number;
 };

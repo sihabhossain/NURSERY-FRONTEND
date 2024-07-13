@@ -1,45 +1,49 @@
-import { Heart, ShoppingCart } from "lucide-react";
-import { ProductDetailsModal } from "./ProductDetailsModal";
+import React from "react";
+import { ShoppingCart } from "lucide-react";
+
 import { useAppDispatch } from "@/redux/hooks";
 import { addToCart } from "@/redux/features/cart/cartSlice";
+import { TProduct } from "@/types/types";
+import { ProductDetailsModal } from "./ProductDetailsModal";
 
-const ProductCard = () => {
+interface ProductCardProps {
+  product: TProduct;
+}
+
+const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const dispatch = useAppDispatch();
 
-  const fakeProduct = {
-    _id: "123",
-    title: "Ambrosia",
-    category: "flower",
-    price: 12,
-    quantity: 1,
-    image:
-      "https://htmldemo.net/pronia/pronia/assets/images/product/medium-size/1-2-270x300.jpg",
-    stock: 11,
+  const handleAddToCart = () => {
+    if (product) {
+      dispatch(addToCart(product));
+    }
   };
 
-  const handleAddToCart = () => {
-    dispatch(addToCart(fakeProduct));
-  };
+  if (!product) {
+    return null;
+  }
 
   return (
     <div className="max-w-xs mx-auto bg-white shadow-sm rounded-lg overflow-hidden relative group cursor-pointer">
       <div className="relative overflow-hidden">
         <img
-          className="w-full h-56 object-cover object-center transform group-hover:scale-110 transition-transform duration-500"
-          src="https://htmldemo.net/pronia/pronia/assets/images/product/medium-size/1-2-270x300.jpg"
-          alt="Plant"
+          className="h-[200px] w-[200px] object-cover object-center transform group-hover:scale-110 transition-transform duration-500"
+          src={product.image}
+          alt={product.title}
         />
         <img
-          className="w-full h-56 object-cover object-center absolute inset-0 backface-hidden transform rotate-y-180 group-hover:rotate-y-0 group-hover:scale-110 transition-transform duration-500"
-          src="https://htmldemo.net/pronia/pronia/assets/images/product/medium-size/1-2-270x300.jpg"
-          alt="Plant Back"
+          className="h-[200px] w-[200px] object-cover object-center absolute inset-0 backface-hidden transform rotate-y-180 group-hover:rotate-y-0 group-hover:scale-110 transition-transform duration-500"
+          src={product.image}
+          alt={product.title}
         />
       </div>
       <div className="p-4">
         <h2 className="text-gray-800 text-lg font-semibold mb-2 group-hover:text-[#98A869] transition-colors duration-300">
-          American Marigold
+          {product.title}
         </h2>
-        <div className="text-gray-700 text-xl font-bold mb-2">$23.45</div>
+        <div className="text-gray-700 text-xl font-bold mb-2">
+          ${product.price.toFixed(2)}
+        </div>
         <div className="flex items-center mb-2">
           {[...Array(5)].map((_, i) => (
             <svg
@@ -53,15 +57,16 @@ const ProductCard = () => {
           ))}
         </div>
         <div className="absolute inset-0 flex items-center space-x-2 p-4 opacity-0 group-hover:opacity-100 transform translate-x-[-50px] group-hover:translate-x-0 transition-all duration-300 ease-in-out">
-          <button className="bg-white text-gray-500 hover:text-white hover:bg-[#98A869] p-2 rounded-md shadow-lg transition duration-300 transform hover:scale-110">
-            <Heart />
-          </button>
-          <button className="bg-white text-gray-500 hover:text-white hover:bg-[#98A869] p-2 rounded-md shadow-lg transition duration-300 transform hover:scale-110">
-            <ProductDetailsModal />
+          <button
+            className="bg-white text-gray-500 hover:text-white hover:bg-[#98A869] p-2 rounded-md shadow-lg transition duration-300 transform hover:scale-110"
+            aria-label="View Product Details"
+          >
+            <ProductDetailsModal product={product} />
           </button>
           <button
             onClick={handleAddToCart}
             className="bg-white text-gray-500 hover:text-white hover:bg-[#98A869] p-2 rounded-md shadow-lg transition duration-300 transform hover:scale-110"
+            aria-label="Add to Cart"
           >
             <ShoppingCart />
           </button>
