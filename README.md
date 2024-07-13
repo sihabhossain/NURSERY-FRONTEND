@@ -1,80 +1,52 @@
-# Vite Shadcn Boilerplate
+# NURSERY MANAEMENT FRONTEND
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/your-username/vite-shadcn-boilerplate/blob/main/LICENSE)
+## Project Description
 
-## Overview
-
-Welcome to the Vite Shadcn Boilerplate! This repository serves as a comprehensive starter template for rapidly setting up a Vite project integrated with Shadcn, React, Tailwind CSS, and TypeScript. With this boilerplate, you can jumpstart your development process, saving valuable time on configuration and setup.
+This frontend application complements the Nursery Management Backend, providing an intuitive user interface for managing an online plant store. It includes features for browsing products, managing orders, and ensuring seamless customer interactions.
 
 ## Features
 
-- **Vite**: Lightning-fast development server and build tool for modern web development.
-- **Shadcn**: A powerful state management library for React, ensuring efficient and predictable state handling.
-- **React**: A popular JavaScript library for building user interfaces.
-- **Tailwind CSS**: A utility-first CSS framework that provides a set of pre-designed styles for rapid UI development.
-- **TypeScript**: A superset of JavaScript that adds static types, enhancing code quality and developer productivity.
+Product Management
+Browse and filter products by category, price, and availability.
+View detailed product information including images and descriptions.
+Add products to the cart and manage quantities.
+Order Management
+View order history and details.
+Track order status and manage cancellations if applicable.
+Checkout process with secure payment options.
+User Experience
+Responsive design for seamless use on desktop and mobile devices.
+Intuitive navigation and user-friendly interface.
+Interactive components for easy product selection and order management.
 
-## Getting Started
+## Technology Stack
 
-1. **Fork the Repository**: Start by forking this repository to your GitHub account.
+Frontend
+React.js with TypeScript
+Redux for state management
+Axios for API requests
+Shadcn-UI for UI components
 
-2. **Clone the Repository**: Clone your forked repository locally using the following command:
+## Installation Guideline
 
-    ```bash
-    git clone https://github.com/your-username/vite-shadcn-boilerplate.git
-    ```
+nstallation Guideline
+Prerequisites
+Node.js (version 14 or higher)
+npm or yarn
+Installation Steps
+Clone the repository:
 
-3. **Install Dependencies**: Navigate to the project directory and install the required dependencies.
+bash
+Copy code
+git clone https://github.com/your-username/nursery-management-frontend.git
+cd nursery-management-frontend
+Install dependencies:
 
-    ```bash
-    cd vite-shadcn-boilerplate
-    npm install
-    ```
+bash
+Copy code
+npm install
+or
 
-4. **Run the Development Server**: Launch the development server to start building your application.
-
-    ```bash
-    npm run dev
-    ```
-
-5. **Build for Production**: When you're ready to deploy your application, create a production build.
-
-    ```bash
-    npm run build
-    ```
-
-## Included Libraries
-
-- **@radix-ui/react-slot**: Component primitives for building unstyled, fully accessible UIs.
-- **class-variance-authority**: A utility for managing conditional CSS class variations.
-- **clsx**: A tiny utility for constructing className strings conditionally.
-- **lucide-react**: A library of simply designed, easily recognizable SVG icons for React.
-- **react**: The JavaScript library for building user interfaces.
-- **react-dom**: Entry point for React applications to interact with the DOM.
-- **tailwind-merge**: Utility functions for merging Tailwind CSS classes.
-- **tailwindcss-animate**: A plugin for animating Tailwind CSS classes.
-
-## Development Tools
-
-- **@typescript-eslint/eslint-plugin**: ESLint plugin for TypeScript.
-- **@typescript-eslint/parser**: TypeScript parser for ESLint.
-- **@vitejs/plugin-react**: Vite plugin for React.
-- **autoprefixer**: A PostCSS plugin to parse CSS and add vendor prefixes.
-- **eslint**: A pluggable linting utility for JavaScript and JSX.
-- **eslint-plugin-react-hooks**: ESLint plugin for React hooks.
-- **eslint-plugin-react-refresh**: ESLint plugin for React Refresh.
-- **postcss**: A tool for transforming styles with JavaScript plugins.
-- **tailwindcss**: A utility-first CSS framework for rapidly building custom designs.
-- **typescript**: A superset of JavaScript that adds static types.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Contribution
-
-Contributions are welcome! Feel free to open issues or submit pull requests to enhance this boilerplate and make it even more powerful.
-
----
-
-**Happy coding!** 🚀
+bash
+Copy code
+yarn install
