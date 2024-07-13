@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
-import CheckoutForm from "../ui/CheckoutForm";
+
 import { TProduct } from "@/types/types";
+import CheckoutForm from "../ui/CheckoutForm";
 
 const CheckoutPage = () => {
   const location = useLocation();

@@ -1,3 +1,5 @@
+import Container from "./Container";
+
 const images = [
   {
     src: "https://img.freepik.com/free-photo/bouquet-flowers-with-white-background_1232-1088.jpg?ga=GA1.1.1193045225.1720843923&semt=sph",
@@ -44,25 +46,27 @@ const images = [
 
 const ImageGallery = () => {
   return (
-    <div className="container mx-auto p-4 h-screen mb-60">
-      <h2 className="text-center text-5xl font-bold my-20 text-gray-600">
-        Image Gallery
-      </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 h-full">
-        {images.map((image, index) => (
-          <div
-            key={index}
-            className={`relative overflow-hidden ${image.cols} ${image.rows}`}
-          >
-            <img
-              src={image.src}
-              alt={`Image ${index + 1}`}
-              className="object-cover w-full h-full"
-            />
-          </div>
-        ))}
+    <Container>
+      <div className="container mx-auto p-4 h-screen mb-60">
+        <h2 className="text-center text-5xl font-bold my-20 text-gray-600">
+          Image Gallery
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 h-full">
+          {images.map((image, index) => (
+            <div
+              key={index}
+              className={`relative overflow-hidden ${image.cols} ${image.rows}`}
+            >
+              <img
+                src={image.src}
+                alt={`Image ${index + 1}`}
+                className="object-cover w-full h-full"
+              />
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </Container>
   );
 };
 
