@@ -7,14 +7,21 @@ import Pagination from "../ui/Pagination";
 interface ProductsProps {
   searchQuery: string;
   selectedCategories: string[];
+  minPrice?: number;
+  maxPrice?: number;
 }
 
-const Products = ({ searchQuery, selectedCategories }: ProductsProps) => {
+const Products = ({
+  searchQuery,
+  selectedCategories,
+  minPrice,
+  maxPrice,
+}: ProductsProps) => {
   const { data, isLoading, isError } = useGetProductsQuery(undefined);
 
   const products = data?.data;
 
-  let filteredProducts = products || []; // Initialize as empty array if products is undefined
+  let filteredProducts = products || [];
 
   // Filter products based on searchQuery
   if (searchQuery && searchQuery.trim() !== "") {
@@ -27,6 +34,22 @@ const Products = ({ searchQuery, selectedCategories }: ProductsProps) => {
   if (selectedCategories.length > 0) {
     filteredProducts = filteredProducts.filter((product: TProduct) =>
       selectedCategories.includes(product.category.toLowerCase())
+    );
+  }
+
+  // Filter products based on price range
+  if (minPrice !== undefined && maxPrice !== undefined) {
+    filteredProducts = filteredProducts.filter(
+      (product: TProduct) =>
+        product.price >= minPrice && product.price <= maxPrice
+    );
+  } else if (minPrice !== undefined) {
+    filteredProducts = filteredProducts.filter(
+      (product: TProduct) => product.price >= minPrice
+    );
+  } else if (maxPrice !== undefined) {
+    filteredProducts = filteredProducts.filter(
+      (product: TProduct) => product.price <= maxPrice
     );
   }
 

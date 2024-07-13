@@ -19,6 +19,8 @@ const Shop = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [minPrice, setMinPrice] = useState<number | undefined>(undefined);
+  const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined);
 
   const handleSearchInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value);
@@ -31,6 +33,16 @@ const Shop = () => {
     } else {
       setSelectedCategories(selectedCategories.filter((c) => c !== category));
     }
+  };
+
+  const handleMinPriceChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = Number(event.target.value);
+    setMinPrice(isNaN(value) ? undefined : value);
+  };
+
+  const handleMaxPriceChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = Number(event.target.value);
+    setMaxPrice(isNaN(value) ? undefined : value);
   };
 
   return (
@@ -73,6 +85,27 @@ const Shop = () => {
               ))}
             </ul>
           </div>
+          <div className="bg-[#F6F7FB] rounded-lg w-full p-4 mt-4">
+            <h2 className="text-xl font-bold mb-4 text-center">Price Range </h2>
+            {/* Price range filter */}
+            <div className="flex items-center justify-between">
+              <Input
+                type="number"
+                className="outline-none ring-0 w-1/2 pr-2"
+                placeholder="Min Price"
+                value={minPrice || ""}
+                onChange={handleMinPriceChange}
+              />
+              <span className="mx-2">-</span>
+              <Input
+                type="number"
+                className="outline-none ring-0 w-1/2 pl-2"
+                placeholder="Max Price"
+                value={maxPrice || ""}
+                onChange={handleMaxPriceChange}
+              />
+            </div>
+          </div>
         </div>
 
         {/* Products and pagination */}
@@ -80,6 +113,8 @@ const Shop = () => {
           <Products
             searchQuery={searchQuery}
             selectedCategories={selectedCategories}
+            minPrice={minPrice}
+            maxPrice={maxPrice}
           />
         </div>
       </div>
