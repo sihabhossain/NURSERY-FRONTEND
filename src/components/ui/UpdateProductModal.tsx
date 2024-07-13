@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -13,31 +13,81 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { TFormData } from "@/types/types";
 import { Badge } from "./badge";
+import { useUpdateProductMutation, useGetProductsQuery } from "@/redux/api/api";
+import toast from "react-hot-toast";
 
-export function UpdateProductModal() {
-  const [formData, setFormData] = useState<TFormData>({
-    category: "",
-    title: "",
-    price: "",
-    quantity: "",
-    description: "",
-    rating: "",
-    image: "",
-  });
+interface UpdateProductModalProps {
+  productId: string;
+}
+
+const defaultFormData: TFormData = {
+  category: "",
+  title: "",
+  price: 0,
+  quantity: 0,
+  description: "",
+  rating: 0,
+  image: "",
+  stock: 0,
+};
+
+export function UpdateProductModal({ productId }: UpdateProductModalProps) {
+  const { data: initialProductData, isSuccess } =
+    useGetProductsQuery(productId);
+  const [formData, setFormData] = useState<TFormData>(defaultFormData);
+  const [updateProduct, { isLoading }] = useUpdateProductMutation();
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (isSuccess && initialProductData) {
+      const {
+        category,
+        title,
+        price,
+        quantity,
+        description,
+        rating,
+        image,
+        stock,
+      } = initialProductData;
+      setFormData({
+        category,
+        title,
+        price,
+        quantity,
+        description,
+        rating,
+        image,
+        stock,
+      });
+    }
+  }, [isSuccess, initialProductData]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({
+      ...formData,
+      [name]:
+        name === "price" || name === "quantity" || name === "rating"
+          ? parseFloat(value)
+          : value,
+    });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log(formData); // Replace with actual logic
+    try {
+      await updateProduct({ _id: productId, data: formData });
+      toast.success("Product updated");
+      setIsOpen(false);
+    } catch (error) {
+      toast.error("Error updating product");
+    }
   };
 
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
         <Badge>Update</Badge>
       </DialogTrigger>
@@ -81,6 +131,7 @@ export function UpdateProductModal() {
               <Input
                 id="price"
                 name="price"
+                type="number"
                 value={formData.price}
                 onChange={handleChange}
                 className="col-span-3"
@@ -93,6 +144,7 @@ export function UpdateProductModal() {
               <Input
                 id="quantity"
                 name="quantity"
+                type="number"
                 value={formData.quantity}
                 onChange={handleChange}
                 className="col-span-3"
@@ -117,6 +169,7 @@ export function UpdateProductModal() {
               <Input
                 id="rating"
                 name="rating"
+                type="number"
                 value={formData.rating}
                 onChange={handleChange}
                 className="col-span-3"
@@ -134,9 +187,24 @@ export function UpdateProductModal() {
                 className="col-span-3"
               />
             </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="stock" className="text-right">
+                Stock
+              </Label>
+              <Input
+                id="stock"
+                name="stock"
+                type="number"
+                value={formData.stock}
+                onChange={handleChange}
+                className="col-span-3"
+              />
+            </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Update Product</Button>
+            <Button type="submit" disabled={isLoading}>
+              {isLoading ? "Updating..." : "Update Product"}
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>

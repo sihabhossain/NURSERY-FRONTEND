@@ -1,41 +1,14 @@
+import { useGetProductsQuery } from "@/redux/api/api";
 import { AddProductModal } from "../ui/AddProductModal";
-import { Badge } from "../ui/badge";
 import Container from "../ui/Container";
 import { UpdateProductModal } from "../ui/UpdateProductModal";
+import { TProduct } from "@/types/types";
+import { AlertForDelete } from "../ui/AlertForDelete";
 
 const ProductManagement = () => {
-  const products = [
-    {
-      category: "Plants",
-      title: "Aloe Vera",
-      price: "$10.00",
-      quantity: 5,
-      description: "A succulent plant species of the genus Aloe.",
-      rating: 4.5,
-      image:
-        "https://htmldemo.net/pronia/pronia/assets/images/product/medium-size/1-2-270x300.jpg",
-    },
-    {
-      category: "Tools",
-      title: "Garden Shovel",
-      price: "$15.00",
-      quantity: 10,
-      description: "A small hand shovel for gardening.",
-      rating: 4.0,
-      image:
-        "https://htmldemo.net/pronia/pronia/assets/images/product/medium-size/1-2-270x300.jpg",
-    },
-    {
-      category: "Fertilizers",
-      title: "Organic Fertilizer",
-      price: "$20.00",
-      quantity: 20,
-      description: "Natural fertilizer for all kinds of plants.",
-      rating: 4.8,
-      image:
-        "https://htmldemo.net/pronia/pronia/assets/images/product/medium-size/1-2-270x300.jpg",
-    },
-  ];
+  const { data, isSuccess } = useGetProductsQuery(undefined);
+
+  const products = data?.data;
 
   return (
     <Container>
@@ -46,51 +19,55 @@ const ProductManagement = () => {
           <AddProductModal />
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="table-auto min-w-full bg-white shadow-md rounded-lg">
-            <thead>
-              <tr className="bg-gray-200 text-gray-600 text-sm leading-normal">
-                <th className="py-2 px-6 text-left">Category</th>
-                <th className="py-2 px-6 text-left">Title</th>
-                <th className="py-2 px-6 text-left">Price</th>
-                <th className="py-2 px-6 text-left">Quantity</th>
-                <th className="py-2 px-6 text-left">Description</th>
-                <th className="py-2 px-6 text-left">Rating</th>
-                <th className="py-2 px-6 text-left">Image</th>
-                <th className="py-2 px-6 text-left">Actions</th>{" "}
-                {/* New column for actions */}
-              </tr>
-            </thead>
-            <tbody className="text-gray-600 text-sm font-light">
-              {products.map((product, index) => (
-                <tr
-                  key={index}
-                  className="border-b border-gray-200 hover:bg-gray-100"
-                >
-                  <td className="py-3 px-6 text-left whitespace-nowrap">
-                    {product.category}
-                  </td>
-                  <td className="py-3 px-6 text-left">{product.title}</td>
-                  <td className="py-3 px-6 text-left">{product.price}</td>
-                  <td className="py-3 px-6 text-left">{product.quantity}</td>
-                  <td className="py-3 px-6 text-left">{product.description}</td>
-                  <td className="py-3 px-6 text-left">{product.rating}</td>
-                  <td className="py-3 px-6 text-left">
-                    <img className="w-10 h-10" src={product.image} alt="" />
-                  </td>
-                  <td className="py-3 px-6 text-left">
-                    <div className="flex space-x-4 cursor-pointer">
-                      <div>
-                        <UpdateProductModal />
-                      </div>
-                      <Badge>Delete</Badge>
-                    </div>
-                  </td>
+        {isSuccess && (
+          <div className="overflow-x-auto">
+            <table className="table-auto min-w-full bg-white shadow-md rounded-lg">
+              <thead>
+                <tr className="bg-gray-200 text-gray-600 text-sm leading-normal">
+                  <th className="py-2 px-6 text-left">Category</th>
+                  <th className="py-2 px-6 text-left">Title</th>
+                  <th className="py-2 px-6 text-left">Price</th>
+                  <th className="py-2 px-6 text-left">Stock</th>
+                  <th className="py-2 px-6 text-left">Description</th>
+                  <th className="py-2 px-6 text-left">Rating</th>
+                  <th className="py-2 px-6 text-left">Image</th>
+                  <th className="py-2 px-6 text-left">Actions</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody className="text-gray-600 text-sm font-light">
+                {products &&
+                  products.map((product: TProduct) => (
+                    <tr
+                      key={product._id}
+                      className="border-b border-gray-200 hover:bg-gray-100"
+                    >
+                      <td className="py-3 px-6 text-left whitespace-nowrap">
+                        {product.category}
+                      </td>
+                      <td className="py-3 px-6 text-left">{product.title}</td>
+                      <td className="py-3 px-6 text-left">{product.price}</td>
+                      <td className="py-3 px-6 text-left">{product.stock}</td>
+                      <td className="py-3 px-6 text-left">
+                        {product.description}
+                      </td>
+                      <td className="py-3 px-6 text-left">{product.rating}</td>
+                      <td className="py-3 px-6 text-left">
+                        <img className="w-10 h-10" src={product.image} alt="" />
+                      </td>
+                      <td className="py-3 px-6 text-left">
+                        <div className="flex space-x-4 cursor-pointer">
+                          <div>
+                            <UpdateProductModal productId={product._id} />
+                          </div>
+                          <AlertForDelete productId={product._id} />
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </Container>
   );

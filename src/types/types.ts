@@ -1,5 +1,5 @@
 export type TFormData = {
-  _id: string;
+  _id?: string;
   category: string;
   title: string;
   price: number;
@@ -22,10 +22,12 @@ export type TCartItem = {
 
 export type TProduct = {
   _id: string;
-  title: string;
   category: string;
+  title: string;
   price: number;
   quantity: number;
+  description: string;
+  rating: number;
   image: string;
   stock: number;
 };
